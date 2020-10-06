@@ -6,16 +6,16 @@ In the project directory, you can run:
 
 ### `npm start`
 
+Runs the app in a server deployment mode.
+
+### `npm run dev`
+
 Runs the app in the development mode.<br />
+
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 The page will reload if you make edits.<br />
 You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
 ### `npm run build`
 
@@ -25,44 +25,37 @@ It correctly bundles React in production mode and optimizes the build for the be
 The build is minified and the filenames include the hashes.<br />
 Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
 ## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+You can visit the web app [here](https://rickandmorty-webapp.herokuapp.com/).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+#### About this app
 
-### Code Splitting
+You can search Characters, Locations or Episodes of Rick and Morty's series.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+To search by Characters, you must first choose the characters filter and after typing three or more characters starting to search by name or type or even both.
 
-### Analyzing the Bundle Size
+![screenshoot](assets/images/screenshoot1.jpg)
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+With the results you can click on any one to open a modal to show you more details about this character.
 
-### Making a Progressive Web App
+![screenshoot](assets/images/screenshoot2.jpg)
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+To search by Locations, you must first choose the locations filter and after typing three o more characters starting to search by name or type or even both.
 
-### Advanced Configuration
+![screenshoot](assets/images/screenshoot3.jpg)
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+With the results, you can click on any one to open a modal that shows you more details about this location and its first five characters at this location.
 
-### Deployment
+![screenshoot](assets/images/screenshoot4.jpg)
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+To search by Episodes, you must first choose the episodes filter and after typing three o more characters starting to search by name or episode or even both.
 
-### `npm run build` fails to minify
+![screenshoot](assets/images/screenshoot5.jpg)
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+With the results, you can click on any one to open a modal that shows you more details about this episode and its first five characters at this episode.
+
+![screenshoot](assets/images/screenshoot6.jpg)
+
+To reset the search you can click on button reset and this clear all results.
+
