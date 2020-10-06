@@ -1,35 +1,25 @@
 import React from 'react'
 
-const Card = ({ name, location, episode, getInfo, modal }) => {
-
-  const { getInfoLoc, getInfoEpi } = getInfo;
+const Card = ({ location, episode, modal, info }) => {
 
   const handleClick = async () => {
     if(location){
-      const { id } = location;
-      modal(true)
-      await getInfoLoc({
-        variables: {
-          id
-        }
-      });
+      modal(true);
+      info(location);
     };
 
     if(episode){
-      const { id } = episode;
-      modal(true)
-      await getInfoEpi({
-        variables: {
-          id
-        }
-      });
+      modal(true);
+      info(episode);
     };
   };
 
   return (
     <div className="w-full p-1">
       <div className="bg-white border rounded shadow cursor-pointer" onClick={() => handleClick()}>
-        <h1 className="text-center py-2">{name}</h1>
+        {location && <h1 className="text-center py-2">{location.name}</h1>}
+        {episode && <h1 className="text-center py-2">{episode.name}</h1>}
+
         {location && <p className="text-center py-2">{location.dimension}</p>}
         {episode && <p className="text-center py-2">{episode.episode}</p>}
       </div>

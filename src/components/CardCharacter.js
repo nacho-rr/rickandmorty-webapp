@@ -1,16 +1,12 @@
 import React from 'react'
 
-const CardCharacter = ({ character, modal, getInfo, clickable }) => {
+const CardCharacter = ({ character, modal, clickable, info }) => {
   
-  const { id, name, image } = character;
+  const { name, image } = character;
 
   const handleClick = async () => {
     modal(true);
-    await getInfo.getInfoChar({
-      variables: {
-        id
-      }
-    });
+    info(character);
   };
   
   return (

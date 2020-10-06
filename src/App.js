@@ -7,12 +7,7 @@ import CardCharacter from './components/CardCharacter';
 import Card from './components/Card';
 import Info from './components/Info';
 import { useLazyQuery } from '@apollo/client';
-import { GET_CHARACTERS,
-         GET_LOCATIONS,
-         GET_EPISODES,
-         GET_INFO_CHARACTER,
-         GET_INFO_LOCATION,
-         GET_INFO_EPISODE } from './graphql/Query';
+import { GET_CHARACTERS, GET_LOCATIONS, GET_EPISODES } from './graphql/Query';
 
 Modal.setAppElement('#root');
 
@@ -21,9 +16,6 @@ function App() {
   const [ getCharacter, objectCharacter ] = useLazyQuery(GET_CHARACTERS);
   const [ getLocation, objectLocation ] = useLazyQuery(GET_LOCATIONS);
   const [ getEpisode, objectEpisode ] = useLazyQuery(GET_EPISODES);
-  const [ getInfoChar, objInfoChar] = useLazyQuery(GET_INFO_CHARACTER);
-  const [ getInfoLoc, objInfoLoc] = useLazyQuery(GET_INFO_LOCATION);
-  const [ getInfoEpi, objInfoEpi] = useLazyQuery(GET_INFO_EPISODE);
 
   const [radioBotton, setRadioBotton] = useState(null);
   const [searchName, setSearchName] = useState('');
@@ -35,30 +27,6 @@ function App() {
   const [info, setInfo] = useState(null);
   const [variables, setVariables] = useState(null);
 
-  useEffect(() => {
-    
-    if(searchType.length >= 3 && searchName.length >= 3){
-      if(!radioBotton) return setErrorFiler('First select a filter and try again');
-      setErrorFiler(null);
-      getDataByNameType(radioBotton);
-      return;
-    }
-    
-    if(searchName.length >= 3){
-      if(!radioBotton) return setErrorFiler('First select a filter and try again');
-      setErrorFiler(null);
-      getDataByName(radioBotton);
-      return;
-    }
-
-    if(searchType.length >= 3){
-      if(!radioBotton) return setErrorFiler('First select a filter and try again');
-      setErrorFiler(null);
-      getDataByType(radioBotton);
-      return;
-    }
-  }, [searchName, searchType, radioBotton]); // eslint-disable-next-line
-  
   useEffect(() => {
     const { data, error, variables } = objectCharacter;
     setData(data);
@@ -81,20 +49,128 @@ function App() {
   }, [objectEpisode]);
 
   useEffect(() => {
-    const { data } = objInfoChar;
-    setInfo(data);
-  }, [objInfoChar]);
+    
+    if(searchType.length >= 3 && searchName.length >= 3){
+      if(!radioBotton) return setErrorFiler('First select a filter and try again');
+      setErrorFiler(null);
+      switch(radioBotton){
+        case 'character':
+          getCharacter({
+            variables: {
+              filter: {
+                name: searchName,
+                type: searchType
+              }
+            }
+          });
+          return;
   
-  useEffect(() => {
-    const { data } = objInfoLoc;
-    setInfo(data);
-  }, [objInfoLoc]);
+        case 'location':
+          getLocation({
+            variables: {
+              filter: {
+                name: searchName,
+                type: searchType
+              }
+            }
+          });
+          return;
+  
+        case 'episode':
+          getEpisode({
+            variables: {
+              filter: {
+                name: searchName,
+                episode: searchType
+              }
+            }
+          });
+          return;
+      
+        default:
+          return;
+      }
+    }
+    
+    if(searchName.length >= 3){
+      if(!radioBotton) return setErrorFiler('First select a filter and try again');
+      setErrorFiler(null);
+      switch(radioBotton){
+        case 'character':
+          getCharacter({
+            variables: {
+              filter: {
+                name: searchName
+              }
+            }
+          });
+          return;
+        
+        case 'location':
+          getLocation({
+            variables: {
+              filter: {
+                name: searchName
+              }
+            }
+          });
+          return;
+  
+        case 'episode':
+          getEpisode({
+            variables: {
+              filter: {
+                name: searchName
+              }
+            }
+          });
+          return;
+  
+        default:
+          return;
+      }
+    }
 
-  useEffect(() => {
-    const { data } = objInfoEpi;
-    setInfo(data);
-  }, [objInfoEpi]);
-
+    if(searchType.length >= 3){
+      if(!radioBotton) return setErrorFiler('First select a filter and try again');
+      setErrorFiler(null);
+      switch(radioBotton){
+        case 'character':
+          getCharacter({
+            variables: {
+              filter: {
+                type: searchType
+              }
+            }
+          });
+          return;
+  
+        case 'location':
+          getLocation({
+            variables: {
+              filter: {
+                type: searchType
+              }
+            }
+          });
+          return;
+  
+        case 'episode':
+          getEpisode({
+            variables: {
+              filter: {
+                episode: searchType
+              }
+            }
+          });
+          return;
+      
+        default:
+          return;
+      }
+    }
+  }, [searchName, searchType, radioBotton, getCharacter, getEpisode, getLocation]);
+  
   const buildPagination = data => {
     if(!data) return null;
 
@@ -121,120 +197,6 @@ function App() {
     return pagination;
   };
 
-  const getDataByName = async (radioBotton) => {
-    switch(radioBotton){
-      case 'character':
-        await getCharacter({
-          variables: {
-            filter: {
-              name: searchName
-            }
-          }
-        });
-        return;
-      
-      case 'location':
-        await getLocation({
-          variables: {
-            filter: {
-              name: searchName
-            }
-          }
-        });
-        return;
-
-      case 'episode':
-        await getEpisode({
-          variables: {
-            filter: {
-              name: searchName
-            }
-          }
-        });
-        return;
-
-      default:
-        return;
-    }
-  };
-
-  const getDataByType = async (radioBotton) => {
-    switch(radioBotton){
-      case 'character':
-        await getCharacter({
-          variables: {
-            filter: {
-              type: searchType
-            }
-          }
-        });
-        return;
-
-      case 'location':
-        await getLocation({
-          variables: {
-            filter: {
-              type: searchType
-            }
-          }
-        });
-        return;
-
-      case 'episode':
-        await getEpisode({
-          variables: {
-            filter: {
-              episode: searchType
-            }
-          }
-        });
-        return;
-    
-      default:
-        return;
-    }
-  };
-
-  const getDataByNameType = async (radioBotton) => {
-    switch(radioBotton){
-      case 'character':
-        await getCharacter({
-          variables: {
-            filter: {
-              name: searchName,
-              type: searchType
-            }
-          }
-        });
-        return;
-
-    case 'location':
-      await getLocation({
-        variables: {
-          filter: {
-            name: searchName,
-            type: searchType
-          }
-        }
-      });
-      return;
-
-    case 'episode':
-      await getEpisode({
-        variables: {
-          filter: {
-            name: searchName,
-            type: searchType
-          }
-        }
-      });
-      return;
-    
-      default:
-        return;
-    }
-  };
-
   const pagination = buildPagination(data);
 
   return (
@@ -250,7 +212,6 @@ function App() {
             className="uppercase font-bold text-gray-500 hover:text-black px-1" 
             onClick={() => setModalIsOpen(false)}>x</button>
         </div>
-        {(objInfoChar.loading || objInfoLoc.loading || objInfoEpi.loading) && <Spinner />}
         {info && <Info info={info} />}
       </Modal>
       
@@ -283,6 +244,7 @@ function App() {
               setSearchType('');
               setErrorFiler(null);
               setError(null);
+              setInfo(null);
             }}
             >
             reset
@@ -302,25 +264,26 @@ function App() {
             clickable={true}
             character={character}
             modal={setModalIsOpen}
-            getInfo={{getInfoChar}}/>
+            info={setInfo}
+            />
         )}
 
         {(data && data.locations) && data.locations.results.map(location =>
           <Card 
             key={location.id}
-            name={location.name}
             location={location}
             modal={setModalIsOpen}
-            getInfo={{getInfoLoc}} />
+            info={setInfo}
+            />
         )}
 
         {(data && data.episodes) && data.episodes.results.map(episode =>
           <Card
             key={episode.id}
-            name={episode.name}
             episode={episode}
             modal={setModalIsOpen}
-            getInfo={{getInfoEpi}}/>
+            info={setInfo}
+            />
         )}
 
       </div>

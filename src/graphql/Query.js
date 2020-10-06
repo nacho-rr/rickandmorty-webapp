@@ -12,6 +12,9 @@ export const GET_CHARACTERS = gql`
       results{
         id
         name
+        type
+        gender
+        species
         image
       }
     }
@@ -31,6 +34,12 @@ export const GET_LOCATIONS = gql`
         id
         name
         dimension
+        type
+        residents{
+          id
+          name
+          image
+        }
       }
     }
   }
@@ -49,48 +58,12 @@ export const GET_EPISODES = gql`
         id
         name
         episode
-      }
-    }
-  }
-`;
-
-export const GET_INFO_CHARACTER = gql`
-  query character($id: ID!){
-    character(id: $id){
-      name
-      type
-      gender
-      species
-      image
-    }
-  }
-`;
-
-export const GET_INFO_LOCATION = gql`
-  query location($id: ID!){
-    location(id: $id){
-      name
-      type
-      dimension
-      residents{
-        id
-        name
-        image
-      }
-    }
-  }
-`;
-
-export const GET_INFO_EPISODE = gql`
-  query episode($id: ID!){
-    episode(id: $id){
-      name
-      air_date
-      episode
-      characters{
-        id
-        name
-        image
+        air_date
+        characters{
+          id
+          name
+          image
+        }
       }
     }
   }
