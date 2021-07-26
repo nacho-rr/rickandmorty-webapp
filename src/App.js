@@ -8,7 +8,7 @@ import Card from './components/Card';
 import Info from './components/Info';
 import { useLazyQuery } from '@apollo/client';
 import { GET_CHARACTERS, GET_LOCATIONS, GET_EPISODES } from './graphql/Query';
-
+//comentario
 Modal.setAppElement('#root');
 
 function App() {
